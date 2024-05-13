@@ -1,0 +1,41 @@
+@font-face {
+    font-family: "sf-pro-display";
+    font-weight: regular;
+    src: url("../public/fonts/SFPRODISPLAYREGULAR.OTF") format("opentype");
+}
+
+@font-face {
+    font-family: "sf-pro-display";
+    font-weight: bold;
+    src: url("../public/fonts/SFPRODISPLAYBOLD.OTF") format("opentype");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    /* background-color: #d1d1d1; */
+    font-family: "sf-pro-display";
+}
+
+.main {
+    /* display: flex;
+    justify-content: center; */
+}
+
+button:hover {
+    scale: 1.1;
+    transition: transform .5s
+}
+
+input {
+    all: unset;
+}
