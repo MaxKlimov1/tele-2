@@ -163,7 +163,8 @@ class Login {
             {
                 classList: ["input", "password-input"],
                 id: "password-input",
-                styles: inputStyles
+                styles: inputStyles,
+                type: "password"
             }
         )
 
@@ -185,6 +186,7 @@ class Login {
             new Header("div", this.core.header, this.core)
             new TitleSection(this.core.main, this.core)
             this.core.api.getUser(localStorage.getItem("token"))
+            location.reload();
         }, "Авторизироваться")
 
         const forgonPassText = new Component(
@@ -489,7 +491,8 @@ class Login {
             {
                 classList: ["input", "password-input"],
                 id: "password-input",
-                styles: inputStyles
+                styles: inputStyles,
+                type: "password"
             }
         )
 
@@ -514,6 +517,7 @@ class Login {
             new Header("div", this.core.header, this.core)
             new TitleSection(this.core.main, this.core)
             this.core.api.getUser(localStorage.getItem("token"))
+            location.reload();
         }, "Зарегестрироваться")
 
 

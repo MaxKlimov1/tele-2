@@ -16,7 +16,7 @@
 
 .chat-left-side-bar{
     width: 20%;
-    padding: 15px 0 15px 15px;
+    padding: 15px 15px 15px 15px;
     box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
 }
 
@@ -47,9 +47,9 @@
 }
 
 .send-button-block{
-    width: 40px;
-    height: 20px;
-    border: 1px solid black;
+    /* width: 40px; */
+    height: 30px;
+    /* border: 1px solid black; */
     cursor: pointer;
 }
 
@@ -75,20 +75,39 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    /* max-width: 45%; */
+}
+
+.user-message-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* max-width: 45%; */
 }
 
 .user-name, .friend-name {
     color: #86837F;
     font-size: 18px;
-    margin-top: 7px;
+    margin-top: 15px;
 }
 
-.friend-messages, .name-messages {
+.friend-messages {
     padding: 10px;
     /* border: 1px solid #86837F; */
     background-color: #ff6b73;
     color: #fff;
     border-radius: 15px;
+    margin-top: 5px;
+}
+
+.user-messages {
+    padding: 10px;
+    /* border: 1px solid #86837F; */
+    background-color: #7c7c7c;
+    color: #fff;
+    border-radius: 15px;
+    color: #fff;
+    margin-top: 5px;
 }
 
 
@@ -107,13 +126,16 @@
 
 
 
-
+.user-messanger-logo{
+    height: 50px;
+}
 
 .send-panel{
     display: flex;
+    align-items: center;
     width: 100%;
-    height: 40px;
-    padding: 10px;
+    height: 60px;
+    padding: 0 10px;
     box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
     
 }
@@ -141,4 +163,11 @@
 
 .partner-logo{
     width: 100%;
+}
+
+
+.add-files-container{
+    height: 32px;
+    cursor: pointer;
+    margin-right: 10px;
 }

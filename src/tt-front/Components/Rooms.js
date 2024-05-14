@@ -1,5 +1,7 @@
 import { Component } from "./Component.js"
 import { Button } from "./ui/button.js"
+import { TitleSection } from "./ui/titleSection.js"
+import { UserProfile } from "./userProfile.js"
 
 const roomContainerStyles = {
     width: "100%",
@@ -42,13 +44,11 @@ const statusValueStyles = {
 }
 
 const roomPopupStyles = {
-    width: "1000px",
-    padding: "50px",
-    border: "1px solid black",
+    // border: "1px solid black",
     background: "#fff",
-    position: "absolute",
-    left: "50%",
-    top: "50%"
+    padding: "80px",
+    // display: "flex",
+    "box-shadow": "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
 }
 
 const buttonStyles = {
@@ -65,7 +65,8 @@ const buttonStyles = {
 
 const dateContainerStyles = {
     // display: "flex",
-    "margin-top": "15px"
+    "margin-top": "15px",
+    // "display": "flex",
 }
 
 const dateStartStyles = {
@@ -286,13 +287,49 @@ class Rooms {
 
         console.log(iter);
 
-        const roomPopupContainer = new Component(
+        const roomPopupWrapper = new Component(
             "div",
             container,
             this.core,
             {
+                classList: ["room-popup-wrapper"],
+                styles: {
+                    width: "100vw",
+                    height: "100vh",
+                    background: "rgba(0, 0, 0, 0.35)",
+                    position: "fixed",
+                    top: "0",
+                    left: "0",
+                    display: "flex",
+                    "justify-content": "center",
+                    "align-items": "center"
+                },
+            }
+        )
+
+        const roomPopupContainer = new Component(
+            "div",
+            roomPopupWrapper.component,
+            this.core,
+            {
                 classList: ["room-popup-container"],
                 styles: roomPopupStyles
+            }
+        )
+
+        const title = new Component(
+            "p",
+            roomPopupContainer.component,
+            this.core,
+            {
+                classList: ["popup-title"],
+                styles: {
+                    "font-size": "26px",
+                    "font-weight": "bold",
+                    "text-align": "center",
+                    "margin-bottom": "30px"
+                },
+                title: "Бронирование аудитории"
             }
         )
 
@@ -312,8 +349,11 @@ class Rooms {
             this.core,
             {
                 classList: ["amount-people-title"],
-                styles: {},
-                title: "Количество учвстников"
+                styles: {
+                    "margin-bottom": "5px",
+                    "font-size": "18px"
+                },
+                title: "Количество участников"
             }
         )
 
@@ -324,7 +364,12 @@ class Rooms {
             {
                 classList: ["input", "amount-people-input"],
                 id: "amount-people-input",
-                styles: {}
+                styles: {
+                    "box-shadow": "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                    width: "460px",
+                    height: "50px",
+                    padding: "0 20px"
+                }
             }
         )
 
@@ -334,7 +379,9 @@ class Rooms {
             this.core,
             {
                 classList: ["room-timestamp-container"],
-                styles: {},
+                styles: {
+                    
+                },
             }
         )
 
@@ -351,7 +398,12 @@ class Rooms {
             this.core,
             {
                 classList: ["timestamp-start-title"],
-                styles: {},
+                styles: {
+                    "margin-top": "20px"
+                    ,
+                    "margin-bottom": "5px",
+                    "font-size": "18px"
+                },
                 title: "Дата Начала бронирования"
             }
         )
@@ -363,7 +415,12 @@ class Rooms {
             {
                 classList: ["input", "timestamp-start-input"],
                 id: "timestamp-start-input",
-                styles: {},
+                styles: {
+                    "box-shadow": "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                    width: "460px",
+                    height: "50px",
+                    padding: "0 20px"
+                },
                 type: "datetime-local"
             }
         )
@@ -387,7 +444,11 @@ class Rooms {
             this.core,
             {
                 classList: ["timestamp-end-title"],
-                styles: {},
+                styles: {
+                    "margin-top": "20px",
+                    "margin-bottom": "5px",
+                    "font-size": "18px"
+                },
                 title: "Дата окончания бронирования"
             }
         )
@@ -399,7 +460,12 @@ class Rooms {
             {
                 classList: ["input", "timestamp-end-input"],
                 id: "timestamp-end-input",
-                styles: {},
+                styles: {
+                    "box-shadow": "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                    width: "460px",
+                    height: "50px",
+                    padding: "0 20px"
+                },
                 type: "datetime-local"
             }
         )
@@ -408,7 +474,17 @@ class Rooms {
         const button = new Button(
             roomPopupContainer.component,
             this.core,
-            {},
+            {
+                margin: "60px 0 0 160px",
+                // "margin-top": "20px",
+                width: "200px",
+                height: "50px",
+                "background": "#FA434B",
+                border: "none",
+                "border-radius": "0",
+                color: "#fff",
+                "font-size": "18px"
+            },
             (e) => {
 
                 const roomData = {
@@ -425,6 +501,12 @@ class Rooms {
                 });
 
                 this.core.api.updateRoom(roomData)
+
+                roomPopupWrapper.component.remove()
+
+                this.core.main.innerHTML = ""
+
+                new UserProfile(this.core.header, this.core)
 
             },
             "Забронировать"

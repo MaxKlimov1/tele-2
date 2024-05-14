@@ -17,13 +17,13 @@ class InitialClass {
     async createMainBlock() {
 
         new Header("div", this.core.header, this.core)
-        // new TitleSection(this.core.main, this.core)
+        new TitleSection(this.core.main, this.core)
         // new Login(this.core.main, this.core, 1)
         // new Rooms(this.core.main, this.core)
         // new Events(this.core.main, this.core)
         // new UserProfile(this.core.main, this.core)
         // new AdminPanel(this.core.main, this.core)
-        new Chat(this.core.main, this.core)
+        // new Chat(this.core.main, this.core)
 
         new Footer(this.core.footer, this.core)
 

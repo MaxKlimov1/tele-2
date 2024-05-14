@@ -34,6 +34,7 @@ wss.on("connection", (ws) => {
             users[id].send(JSON.stringify({
                 message,
                 name: user[0].name,
+                surname: user[0].surname,
                 email: user[0].email
 
             }))

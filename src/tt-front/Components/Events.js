@@ -1,6 +1,7 @@
 import { Component } from "./Component.js"
 import { Select } from "./ui/select.js"
 import { Button } from "./ui/button.js"
+import { UserProfile } from "./userProfile.js"
 
 const eventsContainerStyles = {
     padding: "30px",
@@ -32,10 +33,11 @@ const eventsSettingsBlockStyles = {
 
 const eventCardStyles = {
     padding: "15px",
-    width: "20%",
+    width: "30%",
     display: "flex",
     "flex-wrap": "wrap",
     "justify-content": "center",
+    "flex-shrink": "0"
 }
 
 const eventsFilterBlockStyles = {
@@ -141,6 +143,22 @@ class Events {
 
         const events = await this.events
 
+        const eventsByUser = await this.core.api.getEventsByUser()
+        let eventsMap = []
+        console.log(eventsByUser);
+
+        try {
+            eventsMap = eventsByUser.events.reduce((acc, event) => {
+                acc[event.id] = event
+                return acc
+            }, {})
+        }
+        catch (err) {
+            console.log(err);
+        }
+
+        console.log("df", eventsMap);
+
         const eventsContainer = new Component(
             "div",
             this.container,
@@ -162,6 +180,67 @@ class Events {
                 title: "Мероприятия"
             }
         )
+
+
+
+
+
+        const addEventContainer = new Component(
+            "div",
+            eventsContainer.component,
+            this.core,
+            {
+                classList: ["add-event-component"],
+                styles: {
+                    width: "100%",
+                    margin: "20px 0",
+                    "position": "relative"
+                }
+            }
+        )
+
+        const addEventBunner = new Component(
+            "img",
+            addEventContainer.component,
+            this.core,
+            {
+                classList: ["add-event-bunner"],
+                styles: {
+                    width: "100%"
+                },
+                src: "../public/assets/images/addeventbunner.png"
+            }
+        )
+
+        const addEventButton = new Button(
+            addEventContainer.component,
+            this.core,
+            {
+                position: "absolute",
+                top: "33%",
+                left: "85%",
+                "box-shadow": "0px 8px 8px 0px rgba(0, 0, 0, 0.25)",
+                padding: "18px 25px",
+                "border": "none",
+                "border-radius": "0",
+                "background": "#FA434B",
+                color: "#fff"
+            },
+            (e) => {
+
+            },
+            "Создать мероприятие"
+        )
+
+
+
+
+
+
+
+
+
+
 
         const eventsSearchPanel = new Component(
             "input",
@@ -256,6 +335,10 @@ class Events {
             }
         )
 
+        const user = await this.core.api.getUser(localStorage.getItem("token"))
+
+        console.log(user);
+
         events.events.forEach(event => {
 
             const eventCard = new Component(
@@ -349,7 +432,30 @@ class Events {
                 }
             )
 
-            const button = new Button(
+
+
+
+
+            if (user.errorStatus) {
+                new Component(
+                    "p",
+                    eventContentBlock.component,
+                    this.core,
+                    {
+                        classList: ["auth-title"],
+                        styles: {
+                            "margin-top": "20px",
+                            "margin-bottom": "15px",
+                            color: "#86837F"
+                        },
+                        title: "Авторизируйтесь"
+                    }
+                )
+
+                return
+            }
+
+            const buttontt = new Button(
                 eventContentBlock.component,
                 this.core,
                 buttonStyles,
@@ -359,9 +465,39 @@ class Events {
                     }
 
                     this.core.api.addUserToEvent(data)
+
+                    this.core.main.innerHTML = ""
+                    new UserProfile(this.core.main, this.core)
                 },
                 "Стать участником"
             )
+
+            if (eventsMap[event.id]) {
+                // button.remove()
+
+                console.log(eventsMap[event.id]);
+                console.log("test");
+                buttontt.component.remove()
+
+                new Component(
+                    "p",
+                    eventContentBlock.component,
+                    this.core,
+                    {
+                        classList: ["event-title"],
+                        styles: {
+                            "margin-top": "30px",
+                            color: "#86837F"
+                        },
+                        title: "Участник"
+                    }
+                )
+            }
+
+
+
+
+
 
         })
 

@@ -165,7 +165,23 @@ class TitleSection {
 
 
 
-
+        const eventTitle = new Component(
+            "div",
+            this.container,
+            this.core,
+            {
+                classList: ["main-event-title"],
+                styles: {
+                    "font-size": "36px",
+                    color: "#282828",
+                    "font-weight": "bold",
+                    // "text-align": "center",
+                    "margin-top": "50px",
+                    "margin-left": "50px"
+                },
+                title: "Ближайшие  мероприятия"
+            }
+        )
 
         const eventsBlock = new Component(
             "div",
@@ -175,9 +191,11 @@ class TitleSection {
                 classList: ["events-block"],
                 styles: {
                     display: "flex",
-                    overflow: "hidden",
+                    // overflow: "hidden",
                     background: "#fff",
-                    padding: "50px"
+                    "overflow-x": "scroll",
+                    padding: "30px 50px 50px",
+                    width: "100%"
                 },
             }
         )
@@ -194,11 +212,33 @@ class TitleSection {
                 {
                     classList: ["event-block"],
                     styles: {
-                        width: "365px",
+                        width: "350px",
                         height: "450px",
+                        "flex-shrink": "0",
+                        // border: "1px solid black",
                         "background-image": "url(../../public/assets/images/event.png)",
-                        "margin": "0 0px"
+                        "margin": "0 29px",
+                        "box-shadow": "inset 0px -50px 150px 10px rgba(0, 0, 0, 0.7)",
+                        "position": "relative"
                     }
+                }
+            )
+
+            const eventText = new Component(
+                "p",
+                eventBlock.component,
+                this.core,
+                {
+                    classList: [ "main-event-text" ],
+                    styles: {
+                        color: "#fff",
+                        "font-size": "20px",
+                        "font-weight": "bold",
+                        "position": "absolute",
+                        top: "88%",
+                        left: "20px"
+                    },
+                    title: event.name
                 }
             )
 

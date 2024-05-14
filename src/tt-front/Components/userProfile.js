@@ -3,6 +3,7 @@ import { Component } from "./Component.js"
 import { Button } from "./ui/button.js"
 import { Header } from "./ui/Header.js"
 import { TitleSection } from "./ui/titleSection.js"
+import { Rooms } from "./Rooms.js"
 
 const userProfileContainerStyles = {
     width: "100%",
@@ -138,7 +139,7 @@ const eventsTextStyles = {
 
 const addEventStyles = {
     height: "35px",
-    padding: "0 30px",
+    padding: "0 15px",
     "border-radius": "0",
     border: "none",
     background: "#FA434B",
@@ -213,10 +214,11 @@ const addAwardsButtonStyles = {
 }
 
 const userActivityStyles = {
-    padding: "20px",
+    padding: "20px 20px",
     "box-shadow": "0px 4px 4px 0 rgba(0, 0, 0, 0.25)",
     "margin-top": "30px",
-    background: "#FCFCFC"
+    background: "#FCFCFC",
+    height: "430px"
 }
 
 const userActivityTitleStyles = {
@@ -249,7 +251,12 @@ const buttonAfterStyles = {
 }
 
 const activityListStyles = {
-
+    display: "flex",
+    // "flex-wrap": "wrap",
+    // "justify-content": "center",
+    "overflow-x": "scroll",
+    "height": "290px",
+    margin: "35px 0 0"
 }
 
 class UserProfile {
@@ -261,7 +268,7 @@ class UserProfile {
 
     createUserProfile = async () => {
 
-        const userEvent = await this.core.api.getEventsByUser()
+        const userEvent = await this.core.api.getRoomsByUser()
         const user = await this.core.api.getUser(getTokenFromLocalStorage())
 
         const userProfileContainer = new Component(
@@ -496,9 +503,11 @@ class UserProfile {
                 this.core,
                 addEventStyles,
                 (e) => {
-
+                    this.core.main.innerHTML = ""
+        
+                    new Rooms(this.core.main, this.core)
                 },
-                "Создать мероприятие"
+                "Забронировать аудиторию"
             )
         }
 
@@ -546,7 +555,7 @@ class UserProfile {
                         title: event.name
                     }
                 )
-
+                
 
                 const eventTimeStart = new Component(
                     "p",
@@ -674,7 +683,7 @@ class UserProfile {
 
         )
 
-
+        const eventsByUser = await this.core.api.getEventsByUser()
         
         const userActivity = new Component(
             "div",
@@ -736,6 +745,81 @@ class UserProfile {
                 styles: activityListStyles
             }
         )
+
+
+        eventsByUser.events.forEach(event => {
+
+            const eventCard = new Component(
+                "div",
+                activityList.component,
+                this.core,
+                {
+                    classList: ["user-event-card"],
+                    styles: {
+                        width: "250px",
+                        height: "200px"
+                    },
+                }
+            )
+
+            const eventImageContainer = new Component(
+                "div",
+                eventCard.component,
+                this.core,
+                {
+                    classList: ["profile-event-img-container"],
+                    styles: {
+                        width: "100%",
+                        margin: "0 10px 0"
+                    }
+                }
+            )
+
+            const eventImg = new Component(
+                "img",
+                eventImageContainer.component,
+                this.core,
+                {
+                    classList: ["event-img"],
+                    styles: {},
+                    src: "../public/assets/images/profile-event-img.png"
+                }
+            )
+
+            const eventTitle = new Component(
+                "p",
+                eventCard.component,
+                this.core,
+                {
+                    classList: ["event-title"],
+                    styles: {
+                        "font-size": "16px",
+                        color: "#1E201F",
+                        "text-align": "center",
+                        "margin-top": "5px"
+                        
+                    },
+                    title: event.name
+                }
+            )
+
+            const status = new Component(
+                "p",
+                eventCard.component,
+                this.core,
+                {
+                    classList: ["event-status"],
+                    styles: {
+                        "font-size": "16px",
+                        color: "#86837F",
+                        "text-align": "center",
+                        "margin-top": "5px"
+                    },
+                    title: "Участник"
+                }
+            )
+
+        })
 
 
     }

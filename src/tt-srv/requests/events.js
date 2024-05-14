@@ -35,6 +35,18 @@ const removeUserToEventRequest = async({ id }) => {
 }
 
 const eventsByUserId = async({ id }) => {
+
+    const eventsUser = (await db.query("select * from event_users where user_id=$1", [id])).rows
+
+    const events = await Promise.all(eventsUser.map(async evet => {
+        return (await (db.query("select * from events where id=$1", [evet.event_id]))).rows[0]
+    }))
+
+    return events
+}
+
+const getRoomsByUser = async({ id }) => {
+    console.log(id);
     return (await db.query("select * from rooms where user_id=$1", [id] )).rows
 }
 
@@ -45,5 +57,6 @@ export {
     deleteEventRequest,
     addUserToEventRequest,
     removeUserToEventRequest,
-    eventsByUserId
+    eventsByUserId,
+    getRoomsByUser
 }

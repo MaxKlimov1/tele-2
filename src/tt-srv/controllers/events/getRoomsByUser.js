@@ -1,8 +1,8 @@
 import { getUserByEmail } from "../../requests/users.js"
 import { getDataFromToken } from "../../services/getDataFromToken.js"
-import { eventsByUserId } from "../../requests/events.js"
+import { getRoomsByUser } from "../../requests/events.js"
 
-const getEventByUser = async(req, res) => {
+const getRoomsByToken = async(req, res) => {
     try{
         const token = req.headers.token
 
@@ -13,7 +13,7 @@ const getEventByUser = async(req, res) => {
 
         console.log("User", user);
 
-        const eventsList = await eventsByUserId({ id: user[0].id })
+        const eventsList = await getRoomsByUser({ id: user[0].id })
 
         console.log("eventsByUser", eventsList);
 
@@ -32,5 +32,5 @@ const getEventByUser = async(req, res) => {
 }
 
 export {
-    getEventByUser
+    getRoomsByToken
 }

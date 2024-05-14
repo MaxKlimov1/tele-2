@@ -5,6 +5,7 @@ import { Login } from "../login.js"
 import { UserProfile } from "../userProfile.js"
 import { TitleSection } from "./titleSection.js"
 import { Events } from "../Events.js"
+import { Chat } from "../chat.js"
 
 const navMenuStyles = {
     display: "flex",
@@ -134,8 +135,35 @@ class Header {
                     "height": "30px",
                     display: "flex",
                     "align-items": "center",
-                    cursor: "pointer"
                 }
+            }
+        )
+
+        const noticeImg = new Component(
+            "img",
+            containerForUserLogo.component,
+            this.core,
+            {
+                classList: ["notice-image"],
+                styles: {
+                    "margin-right": "15px",
+                    cursor: "pointer"
+                },
+                src: "../../public/assets/images/notice.png"
+            }
+        )
+
+        const messangerImg = new Component(
+            "img",
+            containerForUserLogo.component,
+            this.core,
+            {
+                classList: ["messanger-image"],
+                styles: {
+                    "margin-right": "15px",
+                    cursor: "pointer"
+                },
+                src: "../../public/assets/images/messanger.png"
             }
         )
 
@@ -147,7 +175,8 @@ class Header {
                 classList: ["user-logo"],
                 styles: {
                     width: "30px",
-                    "margin-right": "5px"
+                    "margin-right": "5px",
+                    cursor: "pointer"
                 }
             }
         )
@@ -158,6 +187,13 @@ class Header {
         if(!user.errorStatus) {
             userLogo.component.src = "../../public/assets/images/userlogo.png"
 
+
+
+
+
+
+
+
             const userName = new Component(
                 "p",
                 containerForUserLogo.component,
@@ -165,22 +201,41 @@ class Header {
                 {
                     classList: ["user-name-block"],
                     styles: {
-                        "font-size": "18px"
+                        "font-size": "18px",
+                        cursor: "pointer"
                     },
                     title: user.user[0].name
                 }
             )
 
-            const login = containerForUserLogo.component.addEventListener("click", (e) => {
+            messangerImg.component.addEventListener("click", (e) => {
+                const main = this.core.main
+                main.innerHTML = ""
+
+                new Chat(this.core.main, this.core)
+
+            })
+
+            const login = userLogo.component.addEventListener("click", (e) => {
                 const main = this.core.main
                 main.innerHTML = ""
 
                 new UserProfile(this.core.main, this.core)
 
             })
+
+            const login2 = userName.component.addEventListener("click", (e) => {
+                const main = this.core.main
+                main.innerHTML = ""
+
+                new UserProfile(this.core.main, this.core)
+        })
+
         }
         else {
             userLogo.component.src = "../../public/assets/images/login.png"
+            noticeImg.component.remove()
+            messangerImg.component.remove()
 
             const login = containerForUserLogo.component.addEventListener("click", (e) => {
                 const main = this.core.main

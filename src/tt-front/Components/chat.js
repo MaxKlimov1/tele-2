@@ -56,11 +56,11 @@ class Chat {
             { id: 1, name: "Мария Петрова", src: "../public/assets/images/user2.png" },
             { id: 2, name: "Егор Иванов", src: "../public/assets/images/user3.png" },
             { id: 3, name: "Дмитрий Петров", src: "../public/assets/images/user4.png" },
-            { id: 4, name: "Хакатон", src: "../public/assets/images/user5.png" },
-            { id: 5, name: "Иван Петров", src: "../public/assets/images/user8.png" },
+            { id: 4, name: "Хакатон", src: "../public/assets/images/user8.png" },
+            { id: 5, name: "Иван Петров", src: "../public/assets/images/user5.png" },
             { id: 6, name: "Иван Петров", src: "../public/assets/images/user6.png" },
             { id: 7, name: "Иван Петров", src: "../public/assets/images/user7.png" },
-            { id: 8, name: "Иван Петров", src: "../public/assets/images/user8.png" },
+            { id: 8, name: "Иван Петров", src: "../public/assets/images/user1.png" },
         ]
 
         usersList.forEach(user => {
@@ -143,7 +143,7 @@ class Chat {
                 styles: {
                     
                 },
-                src: "../public/assets/images/user1.png"
+                src: "../public/assets/images/user8.png"
             }
         )
 
@@ -157,14 +157,14 @@ class Chat {
             ["chat-right-bar-name"],
         )
 
-        userName.innerHTML = "Иван Петров"
+        userName.innerHTML = 'Сообщество "Хакатон"'
 
         const usersCount = elemDiv(
             chatUserInfo,
             ["chat-users-count"],
         )
 
-        usersCount.innerHTML = "1 участник"
+        usersCount.innerHTML = "2 участника"
 
 
         const messagesBlock = elemDiv(
@@ -183,6 +183,16 @@ class Chat {
         )
 
         //блок с изображением плюса добавить (контейнер = addFilesContainer)-->
+        const plusImage = new Component(
+            "img",
+            addFilesContainer,
+            this.core,
+            {
+                classList: ["plus-images"],
+                styles: {},
+                src: "../public/assets/images/plus.png"
+            }
+        )
 
         const inputMessage = Input(
             sendPanel,
@@ -194,7 +204,18 @@ class Chat {
             ["send-button-block"],
         )
 
-        //блок с изображением стрелочки добавить(контейнер = sendButtonBlock)-->
+        const sendButtonImg = new Component(
+            "img",
+            sendButtonBlock,
+            this.core,
+            {
+                classList: ["send-button-img"],
+                styles: {
+                    width: "100%"
+                },
+                src: "../public/assets/images/sendArrow.png"
+            }
+        )
 
 
 
@@ -233,6 +254,7 @@ class Chat {
             console.log(data);
 
             if(!data.isUser) {
+                console.log("ne data");
 
                 const div = elemDiv(
                     messagesBlock,
@@ -246,7 +268,7 @@ class Chat {
                     {
                         classList: ["user-name"],
                         styles:{},
-                        title: data.name
+                        title: `${data.surname} ${data.name}`
                     }
                 )
 
@@ -262,6 +284,7 @@ class Chat {
                 )
             }
             if(data.isUser) {
+                console.log("data");
 
                 const div = elemDiv(
                     messagesBlock,
@@ -275,7 +298,7 @@ class Chat {
                     {
                         classList: ["friend-name"],
                         styles:{},
-                        title: data.name
+                        title: `${data.surname} ${data.name}`
                     }
                 )
 

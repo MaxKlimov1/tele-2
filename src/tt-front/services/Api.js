@@ -91,6 +91,20 @@ class Api {
         return json
     }
 
+    getRoomsByUser = async() => {
+        const token = localStorage.getItem("token")
+
+        const rooms = await fetch(this.host + this.port + `/api/rooms/getRooms`, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json",
+                token
+            }
+        })
+        const json = await rooms.json()
+        return json
+    }
+
     getEvents = async() => {
         const rooms = await fetch(this.host + this.port + `/api/events/get`, {
             method: "GET",

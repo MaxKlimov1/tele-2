@@ -16,6 +16,8 @@ class Button {
         this.createButton()
     }
 
+    component
+
     createButton() {
         
         const button = document.createElement("button")
@@ -29,6 +31,8 @@ class Button {
         button.innerHTML = this.title
 
         this.container.append(button)
+
+        this.component = button
 
     }
 }
