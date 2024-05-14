@@ -32,7 +32,7 @@ const eventsSettingsBlockStyles = {
 
 const eventCardStyles = {
     padding: "15px",
-    width: "30%",
+    width: "20%",
     display: "flex",
     "flex-wrap": "wrap",
     "justify-content": "center",

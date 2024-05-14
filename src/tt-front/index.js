@@ -7,6 +7,7 @@ import { Rooms } from "./Components/Rooms.js";
 import { Events } from "./Components/Events.js";
 import { UserProfile } from "./Components/userProfile.js";
 import { Footer } from "./Components/ui/footer.js";
+import { Chat } from "./Components/chat.js";
 
 class InitialClass {
     constructor(core) {
@@ -19,10 +20,10 @@ class InitialClass {
         // new TitleSection(this.core.main, this.core)
         // new Login(this.core.main, this.core, 1)
         // new Rooms(this.core.main, this.core)
-        new Events(this.core.main, this.core)
+        // new Events(this.core.main, this.core)
         // new UserProfile(this.core.main, this.core)
-
         // new AdminPanel(this.core.main, this.core)
+        new Chat(this.core.main, this.core)
 
         new Footer(this.core.footer, this.core)
 

@@ -1,6 +1,8 @@
 import { getTokenFromLocalStorage } from "../services/getAndSetToken.js"
 import { Component } from "./Component.js"
 import { Button } from "./ui/button.js"
+import { Header } from "./ui/Header.js"
+import { TitleSection } from "./ui/titleSection.js"
 
 const userProfileContainerStyles = {
     width: "100%",
@@ -651,6 +653,28 @@ class UserProfile {
             "Достижения"
 
         )
+
+
+
+        const exiteButton = new Button(
+            activeButtonsBlock.component,
+            this.core,
+            addAwardsButtonStyles,
+            (e) => {
+                localStorage.removeItem("token")
+
+                this.core.header.innerHTML = ""
+                this.core.main.innerHTML = ""
+    
+                new Header("div", this.core.header, this.core)
+                new TitleSection(this.core.main, this.core)
+                
+            },
+            "Выход"
+
+        )
+
+
         
         const userActivity = new Component(
             "div",

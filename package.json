@@ -5,7 +5,8 @@
   "type": "module",
   "main": "srv.js",
   "scripts": {
-    "server": "nodemon srv.js"
+    "server": "nodemon srv.js",
+    "ws-server": "nodemon ws-srv.js"
   },
   "author": "",
   "license": "ISC",

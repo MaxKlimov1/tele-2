@@ -4,7 +4,7 @@ class Api {
     
     constructor() {
         this.host = "http://localhost:"
-        this.port = "3000"
+        this.port = "3002"
     }
 
     getUser = async(token) => {
